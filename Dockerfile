@@ -1,6 +1,7 @@
-FROM java:8
-MAINTAINER Adam Zouari <adam.zouari@heig-vd.ch>
+FROM java:openjdk-8-jre-alpine
 
+MAINTAINER Adam Zouari <adam.zouari@heig-vd.ch>
+MAINTAINER Walid Koubaa <walid.koubaa@heig-vd.ch>
 #
 # When we build the image, we retrieve the latest executable jar directly in the MockMock github repo
 #
