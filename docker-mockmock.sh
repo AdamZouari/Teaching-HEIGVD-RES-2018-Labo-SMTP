@@ -3,7 +3,7 @@
 # if passing arguments
 if [[ "$1" != "" && "$2" != "" ]]
 then
-	# run docker with specified ports
+	# run docker server with specified ports
 	docker run -d -p $1:$1 -p $2:$2 adamzouari/mockmockservermail:latest -p $1 -h $2
 else
 	# else run with the defaults ports
