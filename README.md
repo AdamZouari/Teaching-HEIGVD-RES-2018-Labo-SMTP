@@ -10,16 +10,18 @@ For these reason, our application is based on a **mocker server**.
 ## Mock Server
 
 We have chosen the mock STMP server named [MockMock](https://github.com/tweakers-dev/MockMock/blob/master/README.md) for it.
-It let us simulate real mail sending, and to see what they look like in a web interface. The mails doesn't reach the recipient. This is a solution to simplify integration testing by using fake server.
+It let us simulate real mail sending, and to see what they look like in a web interface. The mails doesn't reach the recipient. 
+This is a solution to simplify integration testing by using fake server.
 
 ### Setting up 
 
-To install and run MockMock, you can download the jar file [here](https://github.com/tweakers-dev/MockMock/blob/master/release/MockMock.jar?raw=true). Extract it to any place you like and start the server by running: ``` java -jar MockMock.jar ``` (the defaults ports are 25 for smtp and 8282 for http)
+To install and run MockMock, you can download the jar file [here](https://github.com/tweakers-dev/MockMock/blob/master/release/MockMock.jar?raw=true).
+Extract it to any place you like and start the server by running: ``` java -jar MockMock.jar ``` (the defaults ports are 25 for smtp and 8282 for http)
 
-Or you can just run our script ``` mockmock-docker.sh ``` that **run in deamon a docker container** who host the MockMock server with ports you want.
+Or you can just run our script ``` mockmock-docker.sh ``` that **run in deamon a docker container** who host the MockMock server.
 
-``` ./mockmock-docker.sh 2525 8080 ```
-or without parameters to use defaults ports : ``` ./mockmock-docker.sh ```
+- **specifiy ports smtp and http** : ``` ./mockmock-docker.sh 2525 8080 ``` 
+- **without parameters to use defaults ports** : ``` ./mockmock-docker.sh ```
 
-![](./figures/dockerfile.png)
+
 
