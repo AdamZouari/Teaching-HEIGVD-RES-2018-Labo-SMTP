@@ -9,7 +9,22 @@ package com.mycompany.labo03.mailrobot;
  */
 public class MailRobot {
 
-private ArrayList <String> adressesMails = new Arraylist<>();
-private int nbgroups =0, nbEtudiants =0;
+    public static void main (String[] args) throws IOException {
 
+        ConfigurationManager manager = new ConfigurationManager();
+
+        try {
+            manager.start();
+
+            manager.sendPrank();
+
+            manager.stop();
+
+        } catch (IOException e) {
+            System.err.println("Error in mail program");
+        } finally {
+            manager.close();
+        }
+
+    }
 }
