@@ -19,6 +19,10 @@ public class PrankGenerator {
 
     private ConfigurationManager config;
 
+    public PrankGenerator(ConfigurationManager config){
+        this.config = config;
+
+    }
 
     public List<Group> createGroups(List<Person> persons, int nbOfGroup) throws IOException {
         List<Person> victims = new ArrayList(persons);
@@ -42,14 +46,13 @@ public class PrankGenerator {
         return groups;
     }
 
-    public void createPranks() throws IOException{
+    public List<Prank> createPranks() throws IOException{
 
         List<String> messages = config.loadMessages();
         List<Person> victims = config.loadVictims();
         int numberOfGroups = config.getNumberOfGroups();
         int numberOfPersonPerGroup = config.getNumberOfPersonPerGroup();
         List<Prank> pranks = new ArrayList<>();
-
 
         List<Group> groups = createGroups(victims, numberOfGroups);
 
@@ -75,7 +78,8 @@ public class PrankGenerator {
             pranks.add(prank);
 
         }
-
+    return pranks;    
     }
+    
 
 }

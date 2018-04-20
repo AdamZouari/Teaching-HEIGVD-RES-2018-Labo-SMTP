@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.labo03.mailrobot.smtp;
 
+import com.mycompany.labo03.mailrobot.model.mail.Message;
 import java.io.*;
 import java.net.Socket;
 
@@ -34,12 +30,10 @@ public class SmtpClient {
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
         // Welcome message received
-
         line = reader.readLine();
         System.out.println(line);
 
         // EHLO Heading
-
         writer.write("EHLO localhost" + SmtpProtocol.EOL);
         writer.flush();
 
@@ -49,59 +43,21 @@ public class SmtpClient {
 
         }
         System.out.println(line);
-
-
-
-
-
-
-
-
-
-        // Welcome message received
-        /*String feedback;
-        reader.readLine();
-
-        writer.println();
-        System.out.println("OKLM");
-
-        // EHLO Heading
-        sendToServer(SmtpProtocol.EHLO);
-        feedback = reader.readLine();
-
-        while(feedback.startsWith("250-")){
-            feedback = reader.readLine();
-            //LOG.info(line);
-        }
-
-        /*while(feedback !="250 0k"){
-            feedback = reader.readLine();
-        }*/
-        // The server will send an unknown number of data in this format
-        //while ((feedback = reader.readLine()).contains(SmtpProtocol.ACCEPTED+" "));
-        //System.out.println("OKLM1");
-
-        //  We reached end of data, so we can start writing an email
-        /*if (!feedback.contains(SmtpProtocol.ACCEPTED+" ")) {
-            System.out.println("Error at the beginning of the mail\n");
-            sendToServer(SmtpProtocol.QUIT);
-
-        }*/
     }
 
-    // We send the prank that contains an email and a group of people to target
+    public void sendMessage(Message message) throws IOException {
 
-    public void sendMessage() throws IOException {
-
-        String email = "walid.koubaa@heig-vd.ch";
-
-
-        writer.write(SmtpProtocol.MAIL_FROM + "walid.koubaa@heig"  + SmtpProtocol.EOL);
+        writer.write(SmtpProtocol.MAIL_FROM + message.getFrom() + SmtpProtocol.EOL);
         writer.flush();
         line = reader.readLine();
 
-
-        writer.write(SmtpProtocol.RCPT_TO + "walid.koubaa@heig" + SmtpProtocol.EOL);
+        for(String to : message.getTo()){
+            writer.write("RCPT TO: " + to + SmtpProtocol.EOL);
+            writer.flush();
+            line = reader.readLine();
+        }
+        
+        writer.write(SmtpProtocol.RCPT_TO + message.getFrom() + SmtpProtocol.EOL);
         writer.flush();
         line = reader.readLine();
 
@@ -114,33 +70,31 @@ public class SmtpClient {
         writer.write("Content-Type: text/plain; charset=UTF-8" + SmtpProtocol.EOL);
         System.out.println("DATA START");
 
-        writer.write("From: " + email + SmtpProtocol.EOL/*messages[i].getFrom().getAddress()*/);
+        writer.write("From: " + message.getFrom() + SmtpProtocol.EOL);
         writer.flush();
-        writer.write("To: " + /*messages[i].getTo().getGroup()*/email + SmtpProtocol.EOL);
+        
+        writer.write("To: ");
+        for(String to : message.getTo()){
+            writer.write(", " + to );
+        }
+        writer.write(SmtpProtocol.EOL);
         writer.flush();
-        writer.write("Subject: Salut !"/*messages[i].getObjet()*/ + SmtpProtocol.EOL);
+        
+        writer.write("Subject: " + message.getObjet() + SmtpProtocol.EOL +  SmtpProtocol.EOL);
         writer.flush();
-        writer.write("Salut ca va ?" + SmtpProtocol.EOL /*messages[i].getData()*/);
+        
+        writer.write(message.getData() + SmtpProtocol.EOL);
         writer.flush();
 
-        System.out.println("BEFORE END OF DATA");
         writer.write(SmtpProtocol.END_OF_DATA);
         writer.flush();
-
-        System.out.println("AFTER END OF DATA");
 
         reader.readLine();
 
         writer.write(SmtpProtocol.QUIT + SmtpProtocol.EOL);
         writer.flush();
 
-        System.out.println("SEND MESSAGE");
-
     }
-
-
-    //}
-
 
     public void quit() throws IOException {
 

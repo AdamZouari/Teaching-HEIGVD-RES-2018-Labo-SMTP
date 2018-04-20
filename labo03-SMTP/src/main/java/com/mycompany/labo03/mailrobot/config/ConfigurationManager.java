@@ -15,44 +15,53 @@ import java.util.Properties;
  * @author Adam Zouari
  * @author Walid Koubaa
  */
-public class ConfigurationManager {
+public final class ConfigurationManager implements IConfigurationManager{
 
-    private Properties confProperties;
+    private final Properties confProperties;
     private final FileInputStream confPropertiesFile;
-    private final BufferedReader victimsFile, messagesFile;
+    private final BufferedReader victimsFile;
+    private final BufferedReader messagesFile;
     private static final String MAIL_SEPARATOR = "===";
-    private List<String> messages;
-    private List<Person> victims;
+    private List<String> messages = new ArrayList<>();
+    private List<Person> victims = new ArrayList<>();
 
 
 
     public ConfigurationManager() throws IOException {
-        confPropertiesFile = new FileInputStream("config.propreties");
+        confProperties = new Properties();
+        confPropertiesFile =  new FileInputStream("config/config.properties");
+        victimsFile  = new BufferedReader(new InputStreamReader(new FileInputStream("config/victims.utf8"), "UTF-8")); 
+        messagesFile = new BufferedReader(new InputStreamReader(new FileInputStream("config/messages.utf8"), "UTF-8"));
+        
         confProperties.load(confPropertiesFile);
-
-        victimsFile = new BufferedReader(new InputStreamReader(new FileInputStream("victims.utf8"), "UTF-8"));
-        messagesFile = new BufferedReader(new InputStreamReader(new FileInputStream("messages.utf8"), "UTF-8"));
-
-        messages = new ArrayList<>();
-        victims = new ArrayList<>();
+        victims = loadVictims();
+        messages = loadMessages();
     }
+    
+    
 
+    @Override
     public String getSmtpServerAddress() {
         return confProperties.getProperty("smtpServerAddress");
     }
-
+    
+   
+    @Override
     public int getSmtpServerPort() {
         return Integer.valueOf(confProperties.getProperty("smtpServerPort"));
     }
 
+    @Override
     public int getNumberOfGroups() {
         return Integer.valueOf(confProperties.getProperty("numberOfGroups"));
     }
 
+    @Override
     public int getNumberOfPersonPerGroup() {
         return Integer.valueOf(confProperties.getProperty("numberOfPersonPerGroup"));
     }
 
+    @Override
     public List<Person> loadVictims() throws IOException
     {
         String address;
@@ -63,6 +72,7 @@ public class ConfigurationManager {
         return victims;
     }
     
+    @Override
     public List<String> loadMessages() throws IOException
     {
         String message = "", line;

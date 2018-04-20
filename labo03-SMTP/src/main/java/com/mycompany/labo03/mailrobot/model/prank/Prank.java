@@ -1,5 +1,3 @@
-
-
 package com.mycompany.labo03.mailrobot.model.prank;
 
 import com.mycompany.labo03.mailrobot.model.mail.Group;
@@ -8,8 +6,6 @@ import com.mycompany.labo03.mailrobot.model.mail.Person;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 /**
  *
  * @author Adam Zouari
@@ -24,14 +20,13 @@ public class Prank{
     private String object;
     private String data;
     private final List<Person> victims = new ArrayList<>();
-    private final List<Person> nonVictims = new ArrayList<>();
-
+    
     public Prank(){
            
 
     }
 
-    public Message[] getMails() {
+    public Message[] getMessages() {
         return mails;
     }
 
@@ -54,13 +49,7 @@ public class Prank{
     public void addVictims(List<Person> victims){
         this.victims.addAll(victims);
     }
-    public void addNonVictims(List<Person> nonVictims){
-        this.nonVictims.addAll(nonVictims);
-    }
-
-    public List<Person> getNonVictims(){
-        return new ArrayList<>(nonVictims);
-    }
+ 
     public List<Person> getVictims(){
         return new ArrayList<>(victims);
     }
@@ -73,15 +62,15 @@ public class Prank{
         this.data = data;
     }
 
-    public Message createMail(){
+    public Message createMessage(){
         ArrayList<String> toAddresses = new ArrayList<>();
         Message message = new Message();
 
 
         message.setFrom(victim.getAddress());
-        for(Person victim : victims){
+        victims.stream().forEach((victim) -> {
             toAddresses.add(victim.getAddress());
-        }
+        });
         
         message.setTo(toAddresses);
 
