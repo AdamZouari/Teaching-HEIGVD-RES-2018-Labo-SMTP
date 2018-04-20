@@ -1,5 +1,3 @@
-
-
 package com.mycompany.labo03.mailrobot.model.mail;
 
 /**
@@ -8,16 +6,14 @@ package com.mycompany.labo03.mailrobot.model.mail;
  */
 public class Person {
 
-        private String address;
+    private final String address;
 
-        public  Person(String address) {
-            this.address = address;
-        }
+    public Person(String address) {
+        this.address = address;
+    }
 
-        public String getAddress() {
-            return address;
-        }
-
+    public String getAddress() {
+        return address;
     }
 
 }
