@@ -48,7 +48,7 @@ By defaults it's 10 and 4 (1 sender and 3 receivers).
 
 - You can add other victims in ``` victims.utf8 ```
 
-- or other mails models in ``` mails.utf8 ``` where each mail is composed of the subject and content. Each mail separated by ```===``` 
+- or other mails models in ``` messages.utf8 ``` where each mail is composed of the subject and content. Each mail separated by ```===``` 
 
 
 

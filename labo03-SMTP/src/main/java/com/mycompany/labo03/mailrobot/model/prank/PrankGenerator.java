@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class PrankGenerator {
 
-    private ConfigurationManager config;
+    private final ConfigurationManager config;
 
     public PrankGenerator(ConfigurationManager config){
         this.config = config;

@@ -74,16 +74,15 @@ public class SmtpClient {
         writer.flush();
         
         writer.write("To: ");
-        for(String to : message.getTo()){
+        message.getTo().stream().forEach((to) -> {
             writer.write(", " + to );
-        }
+        });
         writer.write(SmtpProtocol.EOL);
         writer.flush();
         
         writer.write("Subject: " + message.getObjet() + SmtpProtocol.EOL +  SmtpProtocol.EOL);
         writer.flush();
         
-        writer.write(message.getData() + SmtpProtocol.EOL);
         writer.flush();
 
         writer.write(SmtpProtocol.END_OF_DATA);

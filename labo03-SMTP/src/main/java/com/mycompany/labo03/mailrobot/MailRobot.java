@@ -5,7 +5,6 @@ import com.mycompany.labo03.mailrobot.model.mail.Message;
 import com.mycompany.labo03.mailrobot.model.prank.Prank;
 import com.mycompany.labo03.mailrobot.model.prank.PrankGenerator;
 import com.mycompany.labo03.mailrobot.smtp.SmtpClient;
-
 import java.io.IOException;
 import java.util.List;
 
