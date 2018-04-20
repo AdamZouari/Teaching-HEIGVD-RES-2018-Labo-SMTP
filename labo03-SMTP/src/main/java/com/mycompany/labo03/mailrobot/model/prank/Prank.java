@@ -73,7 +73,7 @@ public class Prank{
         this.data = data;
     }
 
-    public Message createMail(){
+    public Message createMessage(){
         ArrayList<String> toAddresses = new ArrayList<>();
         Message message = new Message();
 
