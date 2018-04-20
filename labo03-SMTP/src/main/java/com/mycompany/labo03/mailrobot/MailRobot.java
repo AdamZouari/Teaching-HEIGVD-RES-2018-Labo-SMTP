@@ -2,6 +2,10 @@
 
 package com.mycompany.labo03.mailrobot;
 
+import com.mycompany.labo03.mailrobot.smtp.*;
+
+import java.io.IOException;
+
 /**
  *
  * @author Adam Zouari
@@ -11,19 +15,19 @@ public class MailRobot {
 
     public static void main (String[] args) throws IOException {
 
-        ConfigurationManager manager = new ConfigurationManager();
+        //PrankGenerator manager = new PrankGenerator();
+        SmtpClient client = new SmtpClient(SmtpConfigurations.SMTP_SERVER_ADRESS, SmtpConfigurations.SMTP_SERVER_PORT);
 
         try {
-            manager.start();
 
-            manager.sendPrank();
-
-            manager.stop();
+            client.connect();
+            client.sendMessage();
+            client.quit();
 
         } catch (IOException e) {
             System.err.println("Error in mail program");
         } finally {
-            manager.close();
+            client.close();
         }
 
     }

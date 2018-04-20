@@ -1,14 +1,12 @@
 package com.mycompany.labo03.mailrobot.config;
 
-import com.mycompany.labo03.mailrobot.model.mail.Message;
 import com.mycompany.labo03.mailrobot.model.mail.Person;
+import com.mycompany.labo03.mailrobot.smtp.SmtpProtocol;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
@@ -55,16 +53,17 @@ public class ConfigurationManager {
         return Integer.valueOf(confProperties.getProperty("numberOfPersonPerGroup"));
     }
 
-    public void loadVictims() throws IOException
+    public List<Person> loadVictims() throws IOException
     {
         String address;
         while((address = victimsFile.readLine()) != null )
         {
             victims.add(new Person(address));
         }
+        return victims;
     }
     
-    public void loadMessages() throws IOException
+    public List<String> loadMessages() throws IOException
     {
         String message = "", line;
         while((line = messagesFile.readLine()) != null )
@@ -74,6 +73,7 @@ public class ConfigurationManager {
             else
                 messages.add(message);
         }
+        return messages;
     }
     
     public List<Person> getVictims(){return victims;}

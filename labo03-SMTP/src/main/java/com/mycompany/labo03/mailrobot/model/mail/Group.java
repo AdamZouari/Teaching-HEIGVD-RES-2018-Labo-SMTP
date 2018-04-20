@@ -12,7 +12,7 @@ public class Group {
 
     private final List<Person> persons;
 
-    Group(){
+    public Group(){
         persons = new ArrayList<>();
     }
     

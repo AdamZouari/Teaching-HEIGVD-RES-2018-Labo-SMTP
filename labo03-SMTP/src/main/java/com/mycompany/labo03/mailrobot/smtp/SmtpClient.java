@@ -5,8 +5,10 @@
  */
 package com.mycompany.labo03.mailrobot.smtp;
 
+import java.io.*;
+import java.net.Socket;
+
 /**
- *
  * @author Adam Zouari
  * @author Walid Koubaa
  */
@@ -15,97 +17,130 @@ public class SmtpClient {
     private Socket socket;
     private BufferedReader reader;
     private PrintWriter writer;
-    private File configFile;
+    String line, server;
+    int port;
 
-    public SmtpClient() {
+    public SmtpClient(String server, int port) {
 
+        this.server = server;
+        this.port = port;
     }
 
     // We pen a connexion between a SMTP server and a client
     public void connect() throws IOException {
-        socket = new Socket(SmtpServSmtpConfigurationser.SMTP_SERVER_ADRESS, SmtpServSmtpConfigurationser.SMTP_SERVER_PORT);
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+
+        socket = new Socket(server, port);
         writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
+        reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
         // Welcome message received
-        String feedback = reader.readLine();
+
+        line = reader.readLine();
+        System.out.println(line);
 
         // EHLO Heading
-        writer.println(SmtpHeading.HELLO + " you");
+
+        writer.write("EHLO localhost" + SmtpProtocol.EOL);
         writer.flush();
 
+
+        while ((line = reader.readLine()).startsWith("250-")) {
+            System.out.println(line);
+
+        }
+        System.out.println(line);
+
+
+
+
+
+
+
+
+
+        // Welcome message received
+        /*String feedback;
+        reader.readLine();
+
+        writer.println();
+        System.out.println("OKLM");
+
+        // EHLO Heading
+        sendToServer(SmtpProtocol.EHLO);
+        feedback = reader.readLine();
+
+        while(feedback.startsWith("250-")){
+            feedback = reader.readLine();
+            //LOG.info(line);
+        }
+
+        /*while(feedback !="250 0k"){
+            feedback = reader.readLine();
+        }*/
         // The server will send an unknown number of data in this format
-        while ((feedback = reader.readLine()).contains(SmtpHeading.ACCEPTED+"-"));
+        //while ((feedback = reader.readLine()).contains(SmtpProtocol.ACCEPTED+" "));
+        //System.out.println("OKLM1");
 
         //  We reached end of data, so we can start writing an email
-        if (!feedback.contains(SmtpHeading.ACCEPTED+" ")) {
+        /*if (!feedback.contains(SmtpProtocol.ACCEPTED+" ")) {
             System.out.println("Error at the beginning of the mail\n");
-            writer.println(SmtpHeading.QUIT);
-            writer.flush();
-        }
+            sendToServer(SmtpProtocol.QUIT);
+
+        }*/
     }
 
     // We send the prank that contains an email and a group of people to target
 
-    public void send(Prank prank) throws IOException {
+    public void sendMessage() throws IOException {
 
-        Mail[] mails = prank.getMails();
-
-
-        for (int i = 0; i < mails.length; i++) {
-            String feedback;
-
-            // MAIL FROM Heading
-            writer.print(SmtpHeading.FROM);
-            writer.flush();
-            writer.println(mails[i].getFrom().getAddress());
-            writer.flush();
-
-            System.out.println("FROM: " + mails[i].getFrom().getAddress());
-
-            reader.readLine();
+        String email = "walid.koubaa@heig-vd.ch";
 
 
-            // RCPT TO Heading
-            List<Person> to = new ArrayList<>(mails[i].getTo().getGroup());
+        writer.write(SmtpProtocol.MAIL_FROM + "walid.koubaa@heig"  + SmtpProtocol.EOL);
+        writer.flush();
+        line = reader.readLine();
 
-            for (int j = 0; j < to.size(); ++j) {
-                writer.print(SmtpHeading.TO);
-                writer.flush();
-                writer.println(to.get(j).getAddress());
-                writer.flush();
 
-                feedback = reader.readLine();
+        writer.write(SmtpProtocol.RCPT_TO + "walid.koubaa@heig" + SmtpProtocol.EOL);
+        writer.flush();
+        line = reader.readLine();
 
-                if (!feedback.contains(String.valueOf(SmtpHeading.ACCEPTED))) {
-                    System.out.print(to.get(j).getAddress() +" not accepted");
-                }
-            }
+        // DATA Heading
+        writer.write(SmtpProtocol.DATA + SmtpProtocol.EOL);
+        writer.flush();
 
-            System.out.println("TO: " + mails[i].getTo().group());
+        line = reader.readLine();
 
-            // DATA Heading
-            writer.println(SmtpHeading.DATA);
-            writer.flush();
+        writer.write("Content-Type: text/plain; charset=UTF-8" + SmtpProtocol.EOL);
+        System.out.println("DATA START");
 
-            reader.readLine();
+        writer.write("From: " + email + SmtpProtocol.EOL/*messages[i].getFrom().getAddress()*/);
+        writer.flush();
+        writer.write("To: " + /*messages[i].getTo().getGroup()*/email + SmtpProtocol.EOL);
+        writer.flush();
+        writer.write("Subject: Salut !"/*messages[i].getObjet()*/ + SmtpProtocol.EOL);
+        writer.flush();
+        writer.write("Salut ca va ?" + SmtpProtocol.EOL /*messages[i].getData()*/);
+        writer.flush();
 
-            writer.println("From: "+ mails[i].getFrom().getAddress());
-            writer.flush();
-            writer.println("To: " + mails[i].getTo().group());
-            writer.println(mails[i].getSubject() + System.lineSeparator());
-            writer.flush();
-            writer.println(mails[i].getBody());
-            writer.flush();
+        System.out.println("BEFORE END OF DATA");
+        writer.write(SmtpProtocol.END_OF_DATA);
+        writer.flush();
 
-            writer.print(SmtpHeading.END_OF_DATA);
-            writer.flush();
+        System.out.println("AFTER END OF DATA");
 
-            reader.readLine();
-        }
+        reader.readLine();
 
+        writer.write(SmtpProtocol.QUIT + SmtpProtocol.EOL);
+        writer.flush();
+
+        System.out.println("SEND MESSAGE");
 
     }
+
+
+    //}
+
 
     public void quit() throws IOException {
 
@@ -114,7 +149,7 @@ public class SmtpClient {
         }
 
         // QUIT Heading
-        writer.println(SmtpHeading.QUIT);
+        writer.write(SmtpProtocol.QUIT + SmtpProtocol.EOL);
         writer.flush();
         reader.readLine();
     }
@@ -134,5 +169,6 @@ public class SmtpClient {
         reader = null;
         writer = null;
     }
+
 }
 

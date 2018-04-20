@@ -2,6 +2,14 @@
 
 package com.mycompany.labo03.mailrobot.model.prank;
 
+import com.mycompany.labo03.mailrobot.model.mail.Group;
+import com.mycompany.labo03.mailrobot.model.mail.Message;
+import com.mycompany.labo03.mailrobot.model.mail.Person;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  *
  * @author Adam Zouari
@@ -9,36 +17,78 @@ package com.mycompany.labo03.mailrobot.model.prank;
 
 public class Prank{
 
-    private Mail[] mails;
+    private Message[] mails;
     private Group group;
 
-    private static final GROUP_SIZE = 4;
+    private Person victim;
+    private String object;
+    private String data;
+    private final List<Person> victims = new ArrayList<>();
+    private final List<Person> nonVictims = new ArrayList<>();
 
     public Prank(){
+           
 
-        superGroup = new Group();
-
-        mails = new Mail[GROUP_SIZE];
-
-        for (int i = 0; i < GROUP_SIZE - 1; ++i) {
-            Person victim = chooseSender(subgroup);
-            mails[i] = new Mail(victim, subgroup);
-        }
     }
 
-    public Mail[] getMails() {
+    public Message[] getMails() {
         return mails;
     }
 
-    public Person chooseSender(Group group) {
 
-        List<Person> listOfPeople = group.getGroup();
+    public void setVictim(Person victim){
+        this.victim = victim;
+    }
 
-        int bound = group.size();
-        Random random = new Random();
-        int index = random.nextInt(bound);
-        Person victim = listOfPeople.get(index);
-        group.remove(index);
+    public Person getVictim() {
         return victim;
     }
+    public String getObject(){
+        return object;
+    }
+
+    public void setObject(String object){
+        this.object = object;
+    }
+
+    public void addVictims(List<Person> victims){
+        this.victims.addAll(victims);
+    }
+    public void addNonVictims(List<Person> nonVictims){
+        this.nonVictims.addAll(nonVictims);
+    }
+
+    public List<Person> getNonVictims(){
+        return new ArrayList<>(nonVictims);
+    }
+    public List<Person> getVictims(){
+        return new ArrayList<>(victims);
+    }
+
+    public String getData(){
+        return data;
+    }
+
+    public void setData(String data){
+        this.data = data;
+    }
+
+    public Message createMail(){
+        ArrayList<String> toAddresses = new ArrayList<>();
+        Message message = new Message();
+
+
+        message.setFrom(victim.getAddress());
+        for(Person victim : victims){
+            toAddresses.add(victim.getAddress());
+        }
+        
+        message.setTo(toAddresses);
+
+        message.setObject(object);
+        message.setData(data);
+
+        return message;
+    }
+
 }

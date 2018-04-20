@@ -2,6 +2,9 @@
 
 package com.mycompany.labo03.mailrobot.model.mail;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Adam Zouari
@@ -9,66 +12,46 @@ package com.mycompany.labo03.mailrobot.model.mail;
  */
 public class Message {
 
-    private Person from;
-    private Group to;
+    private String from;
+    private List<String> to;
     private String objet = "";
     private String data = "";
 
-    private static int idMessage = 0;
-    private static final int NB_MESSAGES = 5;
-
-
-
-    public Message(Person from, Group to) {
+    public Message(String from, List<String> to,String object, String data) {
         this.from = from;
         this.to = to;
-        try {
-            readMessageFromFile();
-        } catch (IOException e) {
-            System.out.println("Error while reading message from file...\n");
-            objet = "";
-            data = "";
-        }
+        this.objet = object;
+        this.data = data;
+    }
+    public Message(){
+    
     }
 
-    public Person getSender(){
+    public String getFrom(){
         return from;
     }
 
-    public Group getReceivers(){
+    public List<String> getTo(){
         return to;
     }
 
-    public getData(){
+    public String getData(){
         return data;
     }
 
-    public getObjet(){
+    public String getObjet(){
         return objet;
     }
 
-    public boolean readMMessageFromFile() throws IOException {
-        int next_message = (idMessage++ % NB_MESSAGES) + 1;
-        BufferedReader file = new BufferedReader(new FileReader("src/main/data/mail" + next_message + ".utf8"));
-
-        String readline;
-
-        // first we get the objet of the mail
-        readline = file.readLine();
-
-        if (!readline.contains("Objet")) {
-            System.out.println("Error ! Wrong mail format ! No objet detected !\n" +
-                    "Quitting...");
-            return false;
-        }
-
-        objet = readline;
-
-        // once the objet added we add each line to the data (content of the mail)
-        while ((readline = file.readLine()) != null) {
-            data += readline;
-        }
-
-        return true;
+    public void setTo(ArrayList<String> to){
+        this.to= to;
     }
+
+    public void setFrom(String from){
+        this.from= from;
+    }
+
+    public void setObject(String object) {this.objet = object;}
+    public void setData(String data) {this.data = data;}
+
 }

@@ -7,7 +7,7 @@ package com.mycompany.labo03.mailrobot.config;
  */
 public interface IConfigurationManager {
 
-    public String getSmtpServerAdress();
+    public String getSmtpServerAddress();
 
     public int getSmtpPort();
 

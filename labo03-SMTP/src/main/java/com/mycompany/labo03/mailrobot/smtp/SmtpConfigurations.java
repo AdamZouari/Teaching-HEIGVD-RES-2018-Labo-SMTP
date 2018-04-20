@@ -1,4 +1,5 @@
-import java
+package com.mycompany.labo03.mailrobot.smtp;
+
 
 // specifies all configurations of our fake SMTP server
 public class SmtpConfigurations{
