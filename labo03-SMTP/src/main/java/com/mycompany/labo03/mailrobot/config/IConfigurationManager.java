@@ -23,4 +23,7 @@ public interface IConfigurationManager {
 
     public List<String> loadMessages() throws IOException;
 
+    public List<String> getMessages();
+
+    public List<Person> getVictims();
 }

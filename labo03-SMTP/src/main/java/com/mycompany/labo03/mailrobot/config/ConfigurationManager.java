@@ -86,7 +86,10 @@ public final class ConfigurationManager implements IConfigurationManager{
         return messages;
     }
     
+    @Override
     public List<Person> getVictims(){return victims;}
+    
+    @Override
     public List<String> getMessages(){return messages;}
 
 }

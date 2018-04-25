@@ -12,7 +12,7 @@ public class SmtpClient {
 
     private Socket socket;
     private BufferedReader reader;
-    private PrintWriter writer;
+    private BufferedWriter writer;
     String line, server;
     int port;
 
@@ -26,7 +26,7 @@ public class SmtpClient {
     public void connect() throws IOException {
 
         socket = new Socket(server, port);
-        writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
+        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
         // Welcome message received
@@ -73,10 +73,11 @@ public class SmtpClient {
         writer.write("From: " + message.getFrom() + SmtpProtocol.EOL);
         writer.flush();
         
-        writer.write("To: ");
-        message.getTo().stream().forEach((to) -> {
-            writer.write(", " + to );
-        });
+        writer.write("To: " + message.getTo().get(0));
+        for(int i = 1; i < message.getTo().size(); i++)
+        {
+            writer.write(", " + message.getTo().get(i));
+        }
         writer.write(SmtpProtocol.EOL);
         writer.flush();
         

@@ -68,8 +68,8 @@ public class Prank{
 
 
         message.setFrom(victim.getAddress());
-        victims.stream().forEach((victim) -> {
-            toAddresses.add(victim.getAddress());
+        victims.stream().forEach((v) -> {
+            toAddresses.add(v.getAddress());
         });
         
         message.setTo(toAddresses);
