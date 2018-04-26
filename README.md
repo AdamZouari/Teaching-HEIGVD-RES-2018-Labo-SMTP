@@ -42,6 +42,8 @@ Go to the config dir : ``` cd labo03-SMTP/config/ ```
 - If you have **run the mock server with specifics ports**,   you must change the value of the **smtpServerPort** constant in ```config.properties ``` 
 - In this same file you can choose **how many groups** in your pranks campaign will target, and how many persons contains a group.
 By defaults it's 10 and 4 (1 sender and 3 receivers).
+- You can also specify which emails should receive the prank in CC (as a copy) so that these emails would be **witnesses** of the pranks sent.
+To do so, you can modify in the ```config.properties``` file, the witnesses you have chosen.
 
 	![](./figures/config.png)
 
@@ -50,12 +52,6 @@ By defaults it's 10 and 4 (1 sender and 3 receivers).
 
 - or other mails models in ``` messages.utf8 ``` where each mail is composed of the subject and content. Each mail separated by ```===``` 
 
-## Specify witnesses
-
-You can also specify which emails should receive the prank in CC (as a copy) so that these emails would be ```witnesses``` of the pranks sent.
-To do so, you can modify in the ```config.properties``` file, the witnesses you have chosen.
-
-![](./figures/config.png)
 
 ## Before sending Mails
 
