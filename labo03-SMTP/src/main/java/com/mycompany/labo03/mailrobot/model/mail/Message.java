@@ -1,9 +1,4 @@
-
-
 package com.mycompany.labo03.mailrobot.model.mail;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -11,47 +6,32 @@ import java.util.List;
  * @author Walid Koubaa
  */
 public class Message {
-
-    private String from;
-    private List<String> to;
-    private String objet = "";
+    private String subject = "";
     private String data = "";
 
-    public Message(String from, List<String> to,String object, String data) {
-        this.from = from;
-        this.to = to;
-        this.objet = object;
+    public Message( String object, String data) {
+        this.subject = object;
         this.data = data;
     }
-    public Message(){
-    
+
+    public Message() {
+
     }
 
-    public String getFrom(){
-        return from;
-    }
-
-    public List<String> getTo(){
-        return to;
-    }
-
-    public String getData(){
+    public String getData() {
         return data;
     }
 
-    public String getObjet(){
-        return objet;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setTo(ArrayList<String> to){
-        this.to= to;
+    public void setSubject(String object) {
+        this.subject = object;
     }
 
-    public void setFrom(String from){
-        this.from= from;
+    public void setData(String data) {
+        this.data = data;
     }
-
-    public void setObject(String object) {this.objet = object;}
-    public void setData(String data) {this.data = data;}
 
 }

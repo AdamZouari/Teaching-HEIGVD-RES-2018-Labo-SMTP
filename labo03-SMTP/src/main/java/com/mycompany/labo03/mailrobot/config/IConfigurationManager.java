@@ -11,19 +11,9 @@ import java.util.List;
  */
 public interface IConfigurationManager {
 
-    public String getSmtpServerAddress();
+    public void loadProperties() throws IOException;
 
-    public int getSmtpServerPort();
+    public void loadVictims() throws IOException;
 
-    public int getNumberOfGroups();
-
-    public int getNumberOfPersonPerGroup();
-
-    public List<Person> loadVictims() throws IOException;
-
-    public List<String> loadMessages() throws IOException;
-
-    public List<String> getMessages();
-
-    public List<Person> getVictims();
+    public void loadMessages() throws IOException;
 }

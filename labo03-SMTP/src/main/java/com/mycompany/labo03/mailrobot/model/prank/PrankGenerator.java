@@ -1,5 +1,3 @@
-
-
 package com.mycompany.labo03.mailrobot.model.prank;
 
 import com.mycompany.labo03.mailrobot.config.ConfigurationManager;
@@ -7,8 +5,7 @@ import com.mycompany.labo03.mailrobot.model.mail.Group;
 import com.mycompany.labo03.mailrobot.model.mail.Person;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -17,69 +14,43 @@ import java.util.Random;
  */
 public class PrankGenerator {
 
-    private final ConfigurationManager config;
+    private ConfigurationManager config;
+    Random random = new Random();
 
-    public PrankGenerator(ConfigurationManager config){
+    public PrankGenerator(ConfigurationManager config) {
         this.config = config;
 
     }
 
-    public List<Group> createGroups(List<Person> persons, int nbOfGroup) throws IOException {
-        List<Person> victims = new ArrayList(persons);
-        List<Group> groups = new ArrayList<>();
-        int bound = 0;
-
-        for (int i=0; i< nbOfGroup; i++) {
-            Group group = new Group();
-            groups.add(group);
+    public Group createGroups() throws IOException {
+        LinkedList<Person> victims = new LinkedList<>(config.getVictims());
+        Group group = new Group();
+        int victemSender = random.nextInt(config.getVictims().size());
+        
+        group.setVictemSender(config.getVictims().get(victemSender));
+        
+        for (int i = 0; i <victims.size() / config.getNumberOfGroups(); ++i) {
+            int randomVictim = random.nextInt(victims.size());
+            while (randomVictim == victemSender) {
+                randomVictim = random.nextInt(victims.size());
+            }
+            group.addPerson(victims.get(randomVictim));
         }
-
-
-        Group subGroup;
-        while (victims.size() > 0) {
-            subGroup = groups.get(bound);
-            bound = (bound + 1) % groups.size();
-            Person newVictim = victims.remove(0);
-            subGroup.addPerson(newVictim) ;
-        }
-
-        return groups;
+        return group;
     }
 
-    public List<Prank> createPranks() throws IOException{
+    public LinkedList<Prank> createPranks() throws IOException {
+        LinkedList<Prank> pranks = new LinkedList<>();
 
-        List<String> messages = config.loadMessages();
-        List<Person> victims = config.loadVictims();
-        int numberOfGroups = config.getNumberOfGroups();
-        int numberOfPersonPerGroup = config.getNumberOfPersonPerGroup();
-        List<Prank> pranks = new ArrayList<>();
-
-        List<Group> groups = createGroups(victims, numberOfGroups);
-
-        int index = 0;
-        Random random = new Random();
-        for(Group group : groups){
-            Prank prank = new Prank();
-
-            List<Person> members = group.getPersons();
-            Person sender = members.remove(0);
-            prank.setVictim(sender);
-            prank.addVictims(members);
-
-
-            index = random.nextInt(messages.size() / 2) * 2;
-            String subject = messages.get(index);
-            String message = messages.get(index + 1);
-
-            prank.setObject(subject);
-
-            prank.setData(message);
-
+        for (int index = 0; index < config.getNumberOfGroups(); index++) {
+            int mess = random.nextInt(config.getMessages().size());
+            Group g=createGroups();
+            Prank prank = new Prank(config.getMessages().get(mess), g);
+            prank.setWitness(config.getWitnessCC());
             pranks.add(prank);
 
         }
-    return pranks;    
+        return pranks;
     }
-    
 
 }

@@ -1,7 +1,6 @@
 package com.mycompany.labo03.mailrobot.model.mail;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  *
@@ -9,18 +8,26 @@ import java.util.List;
  * @author Walid Koubaa
  */
 public class Group {
-
-    private final List<Person> persons;
+    private Person victemSender;
+    private final LinkedList<Person> persons;
 
     public Group(){
-        persons = new ArrayList<>();
+        persons = new LinkedList<Person>();
+    }
+
+    public Person getVictemSender() {
+        return victemSender;
+    }
+
+    public void setVictemSender(Person victemSender) {
+        this.victemSender = victemSender;
     }
     
     public void addPerson(Person person){
         persons.add(person);
     }
     
-    public List<Person> getPersons(){
+    public LinkedList<Person> getPersons(){
         return persons;
     }
     

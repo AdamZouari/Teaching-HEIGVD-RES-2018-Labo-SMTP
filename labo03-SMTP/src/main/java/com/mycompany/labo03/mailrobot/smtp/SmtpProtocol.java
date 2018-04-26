@@ -10,7 +10,7 @@ package com.mycompany.labo03.mailrobot.smtp;
 
 public class SmtpProtocol {
 	
-    public static final String EHLO = "EHLO h";
+    public static final String EHLO = "EHLO ";
     public static final String MAIL_FROM = "MAIL FROM: ";
     public static final String RCPT_TO = "RCPT TO: ";
     public static final String DATA = "DATA";
