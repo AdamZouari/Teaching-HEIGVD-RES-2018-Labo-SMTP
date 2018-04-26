@@ -55,7 +55,7 @@ By defaults it's 10 and 4 (1 sender and 3 receivers).
 You can also specify which emails should receive the prank in CC (as a copy) so that these emails would be ```witnesses``` of the pranks sent.
 To do so, you can modify in the ```config.properties``` file, the witnesses you have chosen.
 
-	![](./figures/config.png)
+	![](https://github.com/AdamZouari/Teaching-HEIGVD-RES-2018-Labo-SMTP/blob/master/figures/config.png)
 
 ## Before sending Mails
 
