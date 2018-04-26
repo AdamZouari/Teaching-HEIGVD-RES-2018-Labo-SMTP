@@ -63,13 +63,13 @@ Before sending your prank emails, open a browser and connect to ```localhost:828
 
 You'll get, before lauching the client (with only the server running), an interface showing you that no mail is received. 
 
-	![](./figures/web-interface-emails.png)
+![](./figures/web-interface-emails.png)
 
 ### Launch the client
 
 You should run the client by executing the following shell ```client.sh``` on your Terminal with the command : 
 
-	./client.sh
+```./client.sh ```
 
 Your client is now connected to the mockmock-server and your prank mails have been sent ! Congratulations !
 
@@ -80,7 +80,7 @@ by opening a browser and connect to ```localhost:8282``` (or modify 8282 by your
 
 You can normally see that some mails were sent and you can easily see all the datas and headers of a basic SMTP protocol.
 
-	![](./figures/web-interface-emails.png)
+![](./figures/web-interface-emails.png)
 	
 You are done ! You successfully simulated an SMTP server to send various and funny mails to differents receivers.
 If you havec some question about the implementation or some improvements you think would make our mock server far better do not hesitate, we would be pleased.
