@@ -53,15 +53,15 @@ By defaults it's 10 and 4 (1 sender and 3 receivers).
 ## Specify witnesses
 
 You can also specify which emails should receive the prank in CC (as a copy) so that these emails would be ```witnesses``` of the pranks sent.
-To do so, you can modify in the ```config.properties``` file, the witnesses chosen.
+To do so, you can modify in the ```config.properties``` file, the witnesses you have chosen.
 
-	![](.figures/config.png)
+	![](./figures/config.png)
 
-## Before sending email
+## Before sending Mails
 
 Before sending your prank emails, open a browser and connect to ```localhost:8282``` (or modify 8282 by your specified port in ```config.properties```).
 
-You'll get before lauching the client (with only the server running), an interface showing you that no mail is received. 
+You'll get, before lauching the client (with only the server running), an interface showing you that no mail is received. 
 
 	![](./figures/web-interface-emails.png)
 
@@ -69,11 +69,11 @@ You'll get before lauching the client (with only the server running), an interfa
 
 You should run the client by executing the following shell ```client.sh``` on your Terminal with the command : 
 
-	**./client.sh**
+	./client.sh
 
 Your client is now connected to the mockmock-server and your prank mails have been sent ! Congratulations !
 
-## Receive email
+## Receive Mails
 
 Once your client launched, you can see that your mails have been sent with the same steps as Before sending email,
 by opening a browser and connect to ```localhost:8282``` (or modify 8282 by your specified port in ```config.properties```).
@@ -81,6 +81,9 @@ by opening a browser and connect to ```localhost:8282``` (or modify 8282 by your
 You can normally see that some mails were sent and you can easily see all the datas and headers of a basic SMTP protocol.
 
 	![](./figures/web-interface-emails.png)
+	
+You are done ! You successfully simulated an SMTP server to send various and funny mails to differents receivers.
+If you havec some question about the implementation or some improvements you think would make our mock server far better do not hesitate, we would be pleased.
 
 
 
