@@ -55,7 +55,7 @@ By defaults it's 10 and 4 (1 sender and 3 receivers).
 You can also specify which emails should receive the prank in CC (as a copy) so that these emails would be ```witnesses``` of the pranks sent.
 To do so, you can modify in the ```config.properties``` file, the witnesses you have chosen.
 
-	![](https://github.com/AdamZouari/Teaching-HEIGVD-RES-2018-Labo-SMTP/blob/master/figures/config.png)
+	![](./figures/config.png)
 
 ## Before sending Mails
 
@@ -84,6 +84,6 @@ You can normally see that some mails were sent and you can easily see all the da
 	
 You are done ! You successfully simulated an SMTP server to send various and funny mails to differents receivers.
 If you havec some question about the implementation or some improvements you think would make our mock server far better do not hesitate, we would be pleased.
-
+ 
 
 
