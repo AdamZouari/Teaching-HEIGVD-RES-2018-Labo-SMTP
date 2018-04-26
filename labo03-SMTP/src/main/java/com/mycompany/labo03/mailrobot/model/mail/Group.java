@@ -15,7 +15,7 @@ public class Group {
         persons = new LinkedList<Person>();
     }
 
-    public Person getVictemSender() {
+    public Person getVictimSender() {
         return victemSender;
     }
 

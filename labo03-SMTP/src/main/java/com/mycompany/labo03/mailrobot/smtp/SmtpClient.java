@@ -37,11 +37,9 @@ public class SmtpClient {
         writer.write("EHLO localhost" + SmtpProtocol.EOL);
         writer.flush();
 
-        while ((line = reader.readLine()).startsWith("250-")) {
-            System.out.println(line);
-        }
+        while ((line = reader.readLine()).startsWith("250-"));
 
-        writer.write(SmtpProtocol.MAIL_FROM + prank.getGroup().getVictemSender().getAddress() + SmtpProtocol.EOL);
+        writer.write(SmtpProtocol.MAIL_FROM + prank.getGroup().getVictimSender().getAddress() + SmtpProtocol.EOL);
         writer.flush();
         line = reader.readLine();
 
@@ -63,7 +61,7 @@ public class SmtpClient {
         writer.write("Content-Type: text/plain; charset=UTF-8" + SmtpProtocol.EOL);
         writer.flush();
         
-        writer.write("From: " + prank.getGroup().getVictemSender().getAddress() + SmtpProtocol.EOL);
+        writer.write("From: " + prank.getGroup().getVictimSender().getAddress() + SmtpProtocol.EOL);
         writer.flush();
 
         writer.write("To: " + prank.getGroup().getPersons().removeFirst().getAddress());
