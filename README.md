@@ -50,8 +50,37 @@ By defaults it's 10 and 4 (1 sender and 3 receivers).
 
 - or other mails models in ``` messages.utf8 ``` where each mail is composed of the subject and content. Each mail separated by ```===``` 
 
+## Specify witnesses
 
+You can also specify which emails should receive the prank in CC (as a copy) so that these emails would be ```witnesses``` of the pranks sent.
+To do so, you can modify in the ```config.properties``` file, the witnesses chosen.
 
+	![](.figures/config.png)
+
+## Before sending email
+
+Before sending your prank emails, open a browser and connect to ```localhost:8282``` (or modify 8282 by your specified port in ```config.properties```).
+
+You'll get before lauching the client (with only the server running), an interface showing you that no mail is received. 
+
+	![](./figures/web-interface-emails.png)
+
+### Launch the client
+
+You should run the client by executing the following shell ```client.sh``` on your Terminal with the command : 
+
+	**./client.sh**
+
+Your client is now connected to the mockmock-server and your prank mails have been sent ! Congratulations !
+
+## Receive email
+
+Once your client launched, you can see that your mails have been sent with the same steps as Before sending email,
+by opening a browser and connect to ```localhost:8282``` (or modify 8282 by your specified port in ```config.properties```).
+
+You can normally see that some mails were sent and you can easily see all the datas and headers of a basic SMTP protocol.
+
+	![](./figures/web-interface-emails.png)
 
 
 
