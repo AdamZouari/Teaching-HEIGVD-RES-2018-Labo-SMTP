@@ -21,14 +21,15 @@ public class MailRobot {
         SmtpClient client = new SmtpClient();
 
         try {
-            client.connect(config.getSmtpServerAddress(), config.getSmtpServerPort());
             PrankGenerator gen = new PrankGenerator(config);
             List<Prank> prankCampaign = gen.createPranks();
-            
+
             for (Prank p : prankCampaign) {
+                client.connect(config.getSmtpServerAddress(), config.getSmtpServerPort());
                 client.sendPrank(p);
+
+                client.quit();
             }
-            client.quit();
 
         } catch (IOException e) {
             System.err.println("Error in mail program");

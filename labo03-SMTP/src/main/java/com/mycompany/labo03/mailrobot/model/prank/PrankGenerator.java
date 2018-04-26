@@ -25,13 +25,13 @@ public class PrankGenerator {
     public Group createGroups() throws IOException {
         LinkedList<Person> victims = new LinkedList<>(config.getVictims());
         Group group = new Group();
-        int victemSender = random.nextInt(config.getVictims().size());
+        int victimSender = random.nextInt(config.getVictims().size());
         
-        group.setVictemSender(config.getVictims().get(victemSender));
+        group.setVictemSender(config.getVictims().get(victimSender));
         
-        for (int i = 0; i <victims.size() / config.getNumberOfGroups(); ++i) {
+        for (int i = 0; i < (victims.size() / config.getNumberOfGroups()) -1 ; ++i) {
             int randomVictim = random.nextInt(victims.size());
-            while (randomVictim == victemSender) {
+            while (randomVictim == victimSender) {
                 randomVictim = random.nextInt(victims.size());
             }
             group.addPerson(victims.get(randomVictim));
