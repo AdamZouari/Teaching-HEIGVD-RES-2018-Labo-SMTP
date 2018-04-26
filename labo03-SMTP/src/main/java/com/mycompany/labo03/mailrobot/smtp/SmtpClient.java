@@ -47,8 +47,8 @@ public class SmtpClient {
             writer.write("RCPT TO: " + to.getAddress() + SmtpProtocol.EOL);
             writer.flush();
         }
-        for (Person to : prank.getWitness()) {
-            writer.write("RCPT TO: " + to.getAddress() + SmtpProtocol.EOL);
+        for (Person cc : prank.getWitness()) {
+            writer.write("RCPT TO: " + cc.getAddress() + SmtpProtocol.EOL);
             writer.flush();
         }
         reader.readLine();
@@ -70,6 +70,12 @@ public class SmtpClient {
         }
         writer.write(SmtpProtocol.EOL);
         writer.flush();
+        
+        for (Person cc : prank.getWitness()) {
+            writer.write("cc: " + cc.getAddress() + SmtpProtocol.EOL);
+            writer.flush();
+        }
+       
 
         writer.write("Subject: " + prank.getMessage().getSubject() + SmtpProtocol.EOL + SmtpProtocol.EOL);
         writer.flush();

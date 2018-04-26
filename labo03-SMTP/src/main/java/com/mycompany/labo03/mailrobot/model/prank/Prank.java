@@ -33,7 +33,7 @@ public class Prank{
         return message;
     }
 
-    public void setMail(Message message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 
