@@ -22,8 +22,8 @@ To install and run MockMock:
  - **without parameters to use defaults ports** : ``` ./mockmock-docker.sh ```
  - **specifiy ports smtp and http** (here 2525 and 8080 for example) : ```./mockmock-docker.sh 2525 8080 ```
 
-port **http** : for the **web interface **  (default : 8282)
-port **smtp** : for **listening client mail** (default 25)
+- port **http** : for the **web interface**  (default : 8282)
+- port **smtp** : for **listening client mail** (default 25)
 
 - - -
 
